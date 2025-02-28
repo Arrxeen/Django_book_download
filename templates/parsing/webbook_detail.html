@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<p>{{ book.title }}</p>
+{% for chapters in book.chapter %}
+    <a href="{% url 'chapter_detail' book.pk chapter.pk %}">{{ chapter.title }}</a>
+    <br>
+{% endfor %}
+
+{% endblock %}

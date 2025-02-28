@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<form method="POST" action="{% url 'book_find' %}">
+    {% csrf_token %}
+    <label for="url">Url:</label>
+    <input type="text" name="url" required>
+
+      <button type="submit" value="Запустить">Запустить</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% for title in books %}
+<a href="{% url 'book_detail' title.pk %}" >{{ title }}</a>
+<br>
+<a href="{% url 'book_delete' title.pk %} " >Delet{{title.pk}}</a>
+<br>
+{% endfor %}
+
+{% endblock %}
