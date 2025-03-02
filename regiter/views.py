@@ -12,14 +12,14 @@ class CustomLogoutView(LogoutView):
 
 class CustomLoginView(LoginView):
     template_name = 'regiter/login.html'
-    next_page = 'chapter_list'
+    next_page = 'book_list'
 
 class RegisterView(CreateView):
     template_name = 'regiter/register.html'
     form_class = UserCreationForm
-    success_url = reverse_lazy('chapter_list')
+    success_url = reverse_lazy('book_list')
     
     def form_valid(self, form): 
         user = form.save()
         login(self.request, user)
-        return redirect(reverse_lazy('chapter_list'))
+        return redirect(reverse_lazy('book_list'))

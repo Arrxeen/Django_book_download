@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1>{{ chapter.title }}</h1> 
+    {% for chapt in chapter.content %}
+    <p>{{ chapt }}</p>
+    {% endfor %}
+{% endblock %}

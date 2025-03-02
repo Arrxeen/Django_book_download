@@ -1,29 +1,34 @@
 from bs4 import BeautifulSoup
 import requests
-from .models import Chapter
+from .models import Chapter, WebBook
 from time import sleep
 
 
-def parse_chapter(tom, chapters):
-        print(f"Починаємо парсити том {tom}, главу {chapters}")
-        url = f"https://ranobehub.org/ranobe/510/{tom}/{chapters}"
-        page = requests.get(url)
-        if page.status_code != 200:
-            tom += 1
-            parse_chapter(tom, chapters)
-        soup = BeautifulSoup(page.text, "html.parser")
-        header = soup.find('h1', class_="ui header")
-        title = header.text.strip()
+
+def parse_chapter(book_id, pg):
+    print(f"Починаємо парсити chapter {pg}")
+    a = []
+    url = 'https://litmir.club/' + WebBook.objects.get(id=book_id).url_first 
+    title = WebBook.objects.get(id=book_id).title
+    if pg > 1:
+        url = f"{url}&p={pg}"
+
+    page = requests.get(url)
+    if page.status_code != 200:
+        print(f"Помилка {page.status_code}")
         
-        # Обчислення falseid з заголовку
-        parts = title.split()
-        falseid = parts[1].split('.')[0]
+    sleep(1)
+    soup = BeautifulSoup(page.text, "html.parser")
 
-        # Збираємо текст глави
-        paragraphs = soup.find_all('p')[:-4]
-        content = "\n".join(p.text.strip() for p in paragraphs)
+    paragraphs = soup.find('div', class_='page_text')
 
-        # Створюємо об'єкт Chapter
-        Chapter.objects.create(title=title, content=content, falls_id=falseid)
-        print(f"Успішно спарсено: {title}")
+    for data in paragraphs:
+        if data.find_all_next('p'):
+            a.append(data.text)
+    # Отримуємо об'єкт WebBook
+    book = WebBook.objects.get(id=book_id)
+
+    # Створюємо об'єкт Chapter
+    Chapter.objects.create(title=title, content=a, book=book)
+    print(f"Успішно спарсено: {title}")
 

@@ -3,11 +3,55 @@
 {% load static %}
 
 {% block content %}
+<h1>{{ book.title }}</h1>
+<form method="POST" action="{% url 'parse_view' book.id  %}">
+    {% csrf_token %}
+    <input type="hidden" name="book_id" value="{{ book.id }}">
+    <button type="submit">Запустить</button>
+</form>
+<button id="stop-task-button">Зупинити задачу</button>
+<h2>Chapters</h2>
+<ul>
+    {% for chapter in book.chapters.all %}
+    <li>{{ chapter.title }}</li>
+    <a href="{% url 'chapter_detail' chapter.id %}">Read</a>
+    <a href="{% url 'chapter_delete' chapter.id  %}">Delete</a>
+    {% endfor %}
+</ul>
 
-<p>{{ book.title }}</p>
-{% for chapters in book.chapter %}
-    <a href="{% url 'chapter_detail' book.pk chapter.pk %}">{{ chapter.title }}</a>
-    <br>
-{% endfor %}
+<script>
+    // Функція для отримання CSRF токена
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    
+    const csrftoken = getCookie('csrftoken');
+    
+    document.getElementById('stop-task-button').addEventListener('click', function() {
+        fetch("{% url 'stop_task' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert("Статус задачі: " + data.status);
+        })
+        .catch(error => console.error('Error:', error));
+    });
+  </script>
 
 {% endblock %}
