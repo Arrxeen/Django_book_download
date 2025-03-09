@@ -3,6 +3,7 @@ from .models import Chapter, WebBook
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from core import celery_app
+from django.core.cache import cache
 from django.http import JsonResponse
 from .tasks import parse_chapter_task, book_find
 from django.contrib.auth.decorators import login_required
@@ -40,6 +41,7 @@ class BookDeliteView(DeleteView):
 class BookListView(ListView):
     model = WebBook
     context_object_name = 'books'
+    paginate_by = 5
 
 class BookDetailView(DetailView):
     model = WebBook
@@ -47,19 +49,10 @@ class BookDetailView(DetailView):
 
     def post(self, request, *args, **kwargs):
         book = self.get_object()
-        parse_chapter_task.delay(book.id)
+        chapter = int(request.POST.get('chapter'))
+        process = parse_chapter_task.delay(book.id,chapter)
+        request.session['celery_task_id'] = process.id 
         return redirect('book_detail', pk=book.pk)
-
-@login_required(login_url="/")
-def start_parsing_view(request):
-    if request.method == 'POST' and not request.POST.get('stop'):
-        book_id = request.POST.get('book_id')
-        process = parse_chapter_task.delay(book_id)
-        task_status = process.status
-        request.session['celery_task_id'] = process.id  
-        book = WebBook.objects.get(id=book_id)
-        return render(request, 'parsing/webbook_detail.html', {'book': book, 'task_status': task_status})
-    return JsonResponse({'status': 'no task found'})
 
 @login_required(login_url="/")
 def book_fin(request):

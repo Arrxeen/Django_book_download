@@ -3,12 +3,36 @@
 {% load static %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'CSS/main.css' %}">
 
-{% for title in books %}
-<a href="{% url 'book_detail' title.pk %}" >{{ title }}</a>
-<br>
-<a href="{% url 'book_delete' title.pk %} " >Delet{{title.pk}}</a>
-<br>
-{% endfor %}
+<div class="list">
+    
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+        {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <a href="?page={{ num }}">{{ num }}</a>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+    {% endif %}
+    </div>
+    {% for title in books %}
+    <div class="book-item">
+        <img src="{{ title.imga }}" alt="image" width="100" height="100">
+        <br>
+        <a href="{% url 'book_detail' title.pk %}" >Читати</a>
+
+        <a style="float: right;" href="{% url 'book_delete' title.pk %} " >Видалити</a>
+        <br>
+    </div>
+    {% endfor %}
+    <br>
+</div>
 
 {% endblock %}

@@ -3,21 +3,32 @@
 {% load static %}
 
 {% block content %}
-<h1>{{ book.title }}</h1>
-<form method="POST" action="{% url 'parse_view' book.id  %}">
-    {% csrf_token %}
-    <input type="hidden" name="book_id" value="{{ book.id }}">
-    <button type="submit">Запустить</button>
-</form>
-<button id="stop-task-button">Зупинити задачу</button>
-<h2>Chapters</h2>
-<ul>
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+<div style="position: relative; margin-top: 50px;">
+    <div class="detail">
+        <h1>{{ book.title }}</h1>
+        <form  method="POST" action="{% url 'book_detail' book.id  %}">
+            {% csrf_token %}
+            <input type="hidden" name="book_id" value="{{ book.id }}">
+            <input type="text" name="chapter" placeholder="Введіть номер глави" aria-label="Введіть номер глави">
+            <button type="submit" id="refreshButton">Запустить</button>
+        </form>
+    
+        <button id="stop-task-button">Зупинити задачу</button>
+    </div>
+
+<table class="table">
+    <tr>
+        <th>Chapters</th>
+    </tr>
     {% for chapter in book.chapters.all %}
-    <li>{{ chapter.title }}</li>
-    <a href="{% url 'chapter_detail' chapter.id %}">Read</a>
-    <a href="{% url 'chapter_delete' chapter.id  %}">Delete</a>
+    <tr>
+           <td> <a href="{% url 'chapter_detail' chapter.id %}">{{ chapter.title }}</a>
+             <a style="float: right;" href="{% url 'chapter_delete' chapter.id  %}">Delete</a></td>
+    </tr>
     {% endfor %}
-</ul>
+</table>
 
 <script>
     // Функція для отримання CSRF токена
@@ -51,7 +62,31 @@
             alert("Статус задачі: " + data.status);
         })
         .catch(error => console.error('Error:', error));
+    
     });
+    
+    document.addEventListener("DOMContentLoaded", function() {
+  // Перевіряємо, чи встановлено лічильник перезавантажень у sessionStorage
+  let reloadCount = sessionStorage.getItem("reloadCount");
+  if (reloadCount !== null && parseInt(reloadCount) > 0) {
+      // Зменшуємо лічильник на 1 та зберігаємо оновлене значення
+      sessionStorage.setItem("reloadCount", parseInt(reloadCount) - 1);
+    // Перезавантажуємо сторінку через 2 секунди
+    setTimeout(function() {
+        window.location.reload();
+    }, 4000);
+  }
+
+  // Обробник кліку для кнопки
+  document.getElementById("refreshButton").addEventListener("click", function() {
+    // Встановлюємо лічильник на 5 перезавантажень
+    sessionStorage.setItem("reloadCount", 5);
+    // Початкове перезавантаження (опційно можна викликати setTimeout, якщо потрібна затримка)
+    window.location.reload();
+});
+});
+
   </script>
 
+</div>
 {% endblock %}

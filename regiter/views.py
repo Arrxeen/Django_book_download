@@ -1,4 +1,4 @@
-
+from django.contrib.auth.models import User
 from django.shortcuts import redirect 
 from django.contrib.auth.views import LoginView, LogoutView 
 from django.contrib.auth.forms import UserCreationForm

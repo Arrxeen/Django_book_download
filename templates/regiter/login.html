@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
 
 {% load static %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
 
 {% block content %}
 <div class="test">
+
 <h2 class="centery">Login</h2>
 <form class="creat-form" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button class="comment-form centery" type="submit">Login</button>
 </form>
+
 </div>
 {% endblock %}

@@ -7,6 +7,6 @@ soup = BeautifulSoup(s.text, 'html.parser')
 
   
 
-first_chapter = soup.find('table',class_='lt49').find('a',class_='read').get('href')
+first_chapter = 'https://litmir.club/'+soup.find('div',class_='lt34').find('img').get('src')
 
 print(first_chapter)

@@ -2,8 +2,16 @@
 {% load static %}
 
 {% block content %}
-    <h1>{{ chapter.title }}</h1> 
-    {% for chapt in chapter.content %}
-    <p>{{ chapt }}</p>
-    {% endfor %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<div class="chapter">
+        <a href="http://127.0.0.1:8000/chapter/{{ chapter.id|add:1 }}" style="text-decoration: none; color: #000; float: right;" >Вперед</a>
+        <a href="http://127.0.0.1:8000/chapter/{{ chapter.id|add:-1 }}" style="text-decoration: none; color: #000;">Назад</a>
+        <h1>{{ chapter.title }}</h1> 
+        {% for chapt in chapter.content %}
+        <p>{{ chapt }}</p>
+        {% endfor %}
+        
+        <a href="http://127.0.0.1:8000/chapter/{{ chapter.id|add:1 }}" style="text-decoration: none; color: #000; float: right;" >Вперед</a>
+        <a href="http://127.0.0.1:8000/chapter/{{ chapter.id|add:-1 }}" style="text-decoration: none; color: #000;">Назад</a>
+    </div>
 {% endblock %}

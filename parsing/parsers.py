@@ -9,7 +9,7 @@ def parse_chapter(book_id, pg):
     print(f"Починаємо парсити chapter {pg}")
     a = []
     url = 'https://litmir.club/' + WebBook.objects.get(id=book_id).url_first 
-    title = WebBook.objects.get(id=book_id).title
+    title = f"Глава {pg}"
     if pg > 1:
         url = f"{url}&p={pg}"
 

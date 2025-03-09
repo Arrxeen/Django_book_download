@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
 
 {% load static %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
 
 {% block content %}
+  <div class="test">
 
-<form method="POST" action="{% url 'book_find' %}">
-    {% csrf_token %}
-    <label for="url">Url:</label>
-    <input type="text" name="url" required>
-    <input type="hidden" name="book_id" value="{{ book.id }}">
-      <button type="submit" value="Запустить">Запустить</button>
-</form>
+      <form method="POST" action="{% url 'book_find' %}">
+        {% csrf_token %}
+        <input type="text" class="form-control" placeholder="Url" aria-label="Url" name="url" required>
+        <input type="hidden" name="book_id" value="{{ book.id }}">
+        <br>
+        <button type="submit" value="Запустить">Запустить</button>
+      </form>
+    </div>
 
 {% endblock %}

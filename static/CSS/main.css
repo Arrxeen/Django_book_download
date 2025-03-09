@@ -1,0 +1,192 @@
+.book-item {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.358),rgba(0, 0, 0, 0.084));
+    margin: 25px;
+    border: 1px solid #717171;
+    border-radius: 6px;
+    float: left;
+    width: auto;
+    height: auto; 
+}
+
+.book-item img {
+    width: auto;
+    height: auto;
+    margin: 5px;
+}
+
+.book-item a {
+    text-decoration: none;
+    color: #000;
+}
+
+.book-item a:hover {
+    color: aqua;
+}
+
+.boo_body{
+    background: linear-gradient(to right, rgb(255, 0, 0, 0.7), rgb(0, 0, 255,0.8));
+}
+
+
+.container_book {
+    position: absolute;
+    margin: 15px;
+    border: 2px solid #5a5a5a;
+    border-radius: 6px;
+    size: auto;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+    
+  }
+.container_book button{
+    border: 2px solid #54f584;
+    border-radius: 6px;
+    margin: 10px;
+}
+
+.container_book button:hover{
+    background: #54f584;
+    color: rgb(173, 0, 0);
+}
+
+.test{
+    background: linear-gradient(90deg, rgba(255, 255, 255,0.1),rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255,0.2);
+    border-radius: 6px;
+    width: 1520px;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+
+    
+}
+
+.test {
+    background: linear-gradient(90deg, rgba(255, 255, 255,0.1),rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255,0.2);
+    border-radius: 6px;
+    margin: 0 auto;
+    margin-top: 160px;
+    width: 25%;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: x-large;
+    font-family:  "Times New Roman", Times, serif;
+    color: black;
+}
+
+.test button{
+    background: linear-gradient(90deg, rgba(164, 9, 9, 0.586),rgba(212, 0, 255, 0.471));
+    border: 2px solid #000000;
+    border-radius: 6px;
+    margin: 10px;
+}
+
+.test button:hover{
+    background: #d23d14b1;
+    color: rgb(0, 0, 0);
+}
+
+.pagination a {
+    color: #ccc;
+    padding: 5px 8px;
+    text-decoration: none;
+    border-radius: 6px;
+    border: 2px solid gray ;
+    margin: 3px;
+    margin-top: 50px;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+
+.pagination a:hover:not(.active) {background-color: #000000;}
+
+.list{
+    margin: 50px;
+    padding: 10px;
+}
+
+.detail input{
+
+    border: 2px solid #000000;
+    border-radius: 6px;
+    margin: 10px;
+    background:linear-gradient(90deg, rgba(255, 255, 255,0.1),rgba(255, 255, 255, 0)); ;
+
+}
+
+.detail input::placeholder{
+    color: #000000;
+}
+
+.detail button{
+    background: linear-gradient(90deg, rgba(164, 9, 9, 0.586),rgba(212, 0, 255, 0.471));
+    border: 2px solid #000000;
+    border-radius: 6px;
+    margin: 10px;
+}
+
+.detail button:hover{
+    background: #d23d14b1;
+    color: rgb(0, 0, 0);
+}
+
+.detail input:focus{
+    outline: none;
+}
+
+.table {
+    border: #000;
+    width: 365px;
+    color:gray
+}
+
+.table th , td , tr {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.747),rgba(123, 123, 123, 0), rgba(0, 0, 0, 0.516));
+    color: white;
+}
+
+.table th{
+    font-family:  "Times New Roman", Times, serif;
+}
+
+.table td{
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.747),rgba(123, 123, 123, 0), rgba(0, 0, 0, 0.516));  
+}
+
+.table a {
+    text-decoration: none;
+    color: white;
+}
+
+.chapter{
+    background: linear-gradient(90deg, rgba(255, 255, 255,0.1),rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255,0.2);
+    border-radius: 6px;
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 1000px;
+    padding: 30px;
+
+    vertical-align: middle;
+    font-size: x-large;
+    font-family:  "Times New Roman", Times, serif;
+    color: black;
+}

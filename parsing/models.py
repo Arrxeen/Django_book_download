@@ -5,6 +5,7 @@ class WebBook(models.Model):
     title = models.CharField(max_length=255)
     url_first = models.URLField()
     urls_parents = models.URLField()
+    imga = models.URLField()
     creater = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
